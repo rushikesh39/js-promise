@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      pre {
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="./script.js"></script>
+    <h3>
+      Q1:-Write one example explaining how you can write a callback function.
+    </h3>
+    <pre>
+        function add(num1, num2, call){
+            let sum=num1+num2;
+            call(sum);
+          }
+          function result(show){
+            console.log(`The result is: ${show}`);
+          
+          }
+          add(12,2,result);
+          
+    </pre>
+    <p>
+      The given code defines two functions add and result, and then calls add
+      with the arguments 12, 2, and the function result as the callback. The add
+      function adds num1 and num2 to get a sum, and then calls the call
+      function, passing in the sum as an argument. The result function simply
+      displays a message with the show.
+    </p>
+    <p>
+      So when the add function is called with the arguments 12, 2, and result,
+      it will calculate the sum 14, and then invoke the result function with the
+      show parameter set to 14. The result function will then log the message
+      "The result is: 14" to the console.
+    </p>
+    <hr />
+    <h3>
+      Q2:- "Write a callback function to print numbers from 1 to 7, in which 1
+      should be printed after 1 sec, 2 should be printed after 2 sec, 3 should
+      be printed after 3 sec, and so on. Explain callback hell. Numbers 1 2 3 4
+      5 6 7"
+    </h3>
+    <pre>
+        setTimeout(()=>{
+    
+            console.log('1');
+              setTimeout(()=>{
+               console.log('2');
+               setTimeout(()=>{
+                console.log('3');
+                   setTimeout(()=>{
+                  console.log('4');
+                  setTimeout(()=>{
+                    console.log('5');
+                    setTimeout(()=>{
+                      console.log('6');
+                      setTimeout(()=>{
+                        console.log('7');
+                     },1000)
+                   },1000)
+                 },1000)
+                },1000)
+               },1000)
+            },1000)
+          },1000)  
+    </pre>
+    <hr />
+    <h3>
+      Q3:- "Write the promise function to print numbers from 1 to 7, in which 1
+      should be printed after 1 sec, 2 should be printed after 2 sec, 3 should
+      be printed after 3 sec, and so on. Numbers 1 2 3 4 5 6 7"
+    </h3>
+    <pre>
+      const displayNum = (dealy, func) => {
+        return  new Promise((resolve, reject )=>{
+          if(func){
+            setTimeout(()=>{
+              resolve(func());
+      
+            },dealy)
+          }
+          else{
+            reject('Enter a number');
+          }
+        })
+      }
+      let count=0;
+      displayNum(0,()=>console.log('number printed'))
+      .then(()=>{
+        return displayNum(1000,()=>console.log(++count))
+      })
+      .then(()=>{
+        return displayNum(2000,()=>console.log(++count))
+      })
+      .then(()=>{
+        return displayNum(3000,()=>console.log(++count))
+      })
+      .then(()=>{
+        return displayNum(4000,()=>console.log(++count))
+      })
+      .then(()=>{
+        return displayNum(5000,()=>console.log(++count))
+      })
+      .then(()=>{
+        return displayNum(6000,()=>console.log(++count))
+      })
+      .then(()=>{
+        return displayNum(7000,()=>console.log(++count))
+      })
+      .catch(err => console.log(err));
+    </pre>
+    <hr />
+    <h3>
+      Q4:- "Create a promise function accepting an argument, if yes is passed to
+      the function then it should go to resolved state and print Promise
+      Resolved, and if nothing is passed then it should go to reject the state
+      and catch the error and print Promise Rejected "
+    </h3>
+    <pre>
+        function myPromise(marks){
+            return new Promise((resolve,reject)=>{
+              if(marks>80){
+                resolve('first class');
+            }
+            else{
+                reject('Promis rejected');
+            }
+            
+            })
+          }
+          myPromise()
+          .then(result => console.log(result))
+          .catch(err => console.log(err));
+          
+          myPromise(89)
+          .then(result => console.log(result))
+          .catch(err => console.log(err));
+    </pre>
+    <hr />
+    <h3>Q5:- Create examples to explain callback function</h3>
+    <pre>
+        function myFunction(name, callback) {
+            console.log('Hi' + ' ' + name);
+            callback();
+          }
+          
+          function callMe() {
+            console.log('I am callback function');
+          }
+          myFunction('rushi', callMe);
+    </pre>
+    <p>
+      The myFunction function takes a name argument and a callback function
+      argument. It logs a message to the console using the name argument, and
+      then calls the callback function. The callMe function is passed as the
+      callback argument to myFunction. When myFunction is called with the name
+      'rushi', it logs the message "Hi rushi" to the console and then calls the
+      callMe function, which logs the message "I am callback function" to the
+      console.
+    </p>
+    <hr />
+    <h3>Q6:- Create examples to explain callback hell function</h3>
+    <pre>
+      function hellFunc(alpha, dealy, callBack){
+        setTimeout(() => {
+            console.log(alpha);
+            callBack()
+        },dealy);
+      }
+      function callHell(){
+        hellFunc("R", 2000, () => {
+            hellFunc("U", 3000, ()=> {
+                hellFunc("S", 1000, ()=> {
+                    hellFunc("H", 6000, ()=> {
+                        hellFunc("I", 5000,()=>{})
+                    })
+                })
+            })
+        })
+      }
+      callHell();
+      
+    </pre>
+    <p>
+      The function callHell invokes the hellFunc function multiple times with
+      different values of alpha, each with a different dealy before invoking the
+      next function in the chain as the callBack. Overall, this creates a
+      sequence of function calls with specified intervals in between, allowing
+      the code to implement a delay and execute code in the correct sequence.
+    </p>
+    <hr />
+    <h3>Q7:- Create examples to explain promises function</h3>
+    <pre>
+      function displayName(latters, delay){
+        return new Promise((resolve, reject)=>{
+          setTimeout(()=>{
+            resolve('fuction run successfully');
+            console.log(latters);
+      
+          },delay)
+        })
+        
+      }
+      function calldisplayName(){
+        displayName('Name printing started',1000)
+        .then(()=> displayName('R',1000))
+        .then(()=> displayName('u',2000))
+        .then(()=> displayName('s',3000))
+        .then(()=> displayName('h',4000))
+        .then(()=> displayName('i',5000))
+      }
+      calldisplayName();
+      
+    </pre>
+    <p>
+      Inside displayName, it uses setTimeout function to log the value of
+      latters to the console after the specified delay. The function
+      calldisplayName invokes displayName function multiple times with different
+      values of letters, each with a different delay specified in the then
+      chains.
+    </p>
+    <hr />
+    <h3>Q8:-Create examples to explain async await function</h3>
+    <pre>
+      function displayName2(latters, delay){
+        return new Promise((resolve, reject)=>{
+          setTimeout(()=>{
+            resolve('fuction run successfully');
+            console.log(latters);
+      
+          },delay)
+        })
+        
+      }
+      async function calldisplayName2(){
+        displayName2('Name printing started using await',1000)
+        await displayName('R',3000)
+        await displayName('u',2000)
+        await displayName('s',1000)
+        await displayName('h',4000)
+        await displayName('i',2000)
+      }
+      calldisplayName2();
+    </pre>
+    <p>
+      The use of the await keyword in the calldisplayName2 function makes it an asynchronous function. The 'await' keyword pauses the execution of the function until the promise returned by the 'displayName2' function is resolved.
+    </p>
+    <hr />
+    <h3>Q9:-Create examples to explain promise.all function</h3>
+    <pre>
+      const promise1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('Promise 1 resolved');
+        }, 10000);
+      });
+      
+      const promise2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('Promise 2 resolved');
+        }, 11000);
+      });
+      
+      const promise3 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('Promise 3 resolved');
+        },12000);
+      });
+      
+      Promise.all([promise1, promise2, promise3])
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    </pre>
+    <p>
+      The Promise.all() method takes an array of Promises as its input. In this case, it takes an array containing promise1, promise2, and promise3. The .then() method is called on the returned Promise to handle the resolved data.
+    </p>
+    <hr />
+  </body>
+</html>
